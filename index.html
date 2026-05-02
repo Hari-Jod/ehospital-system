@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="E-Hospital System – A complete digital hospital management platform for patients, doctors, pharmacists, lab admins and billing departments."/>
+  <title>E-Hospital System | Digital Healthcare Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen" class="screen active">
+    <div class="login-bg">
+      <div class="login-particles"></div>
+      <div class="login-card">
+        <div class="login-logo">
+          <div class="logo-icon">🏥</div>
+          <h1>E-Hospital System</h1>
+          <p>Digital Healthcare Platform</p>
+        </div>
+
+        <!-- Login Tab -->
+        <div id="login-tab" class="auth-tab active">
+          <div class="role-selector">
+            <h3>Select Your Role</h3>
+            <div class="role-grid" id="role-grid">
+              <div class="role-card" data-role="patient" onclick="selectRole('patient')">
+                <span class="role-icon">👤</span>
+                <span>Patient</span>
+              </div>
+              <div class="role-card" data-role="doctor" onclick="selectRole('doctor')">
+                <span class="role-icon">👨‍⚕️</span>
+                <span>Doctor</span>
+              </div>
+              <div class="role-card" data-role="pharmacy" onclick="selectRole('pharmacy')">
+                <span class="role-icon">💊</span>
+                <span>Pharmacist</span>
+              </div>
+              <div class="role-card" data-role="lab" onclick="selectRole('lab')">
+                <span class="role-icon">🔬</span>
+                <span>Lab Admin</span>
+              </div>
+              <div class="role-card" data-role="billing" onclick="selectRole('billing')">
+                <span class="role-icon">💳</span>
+                <span>Billing</span>
+              </div>
+              <div class="role-card" data-role="admin" onclick="selectRole('admin')">
+                <span class="role-icon">🛡️</span>
+                <span>Admin</span>
+              </div>
+            </div>
+          </div>
+          <form class="login-form" id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" id="username" placeholder="Enter username" required/>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="password" placeholder="Enter password" required/>
+            </div>
+            <button type="submit" class="btn-login">Sign In <span>→</span></button>
+          </form>
+          <p class="login-hint">New user? <a href="#" onclick="switchAuthTab(event)">Create Account</a></p>
+        </div>
+
+        <!-- Registration Tab -->
+        <div id="signup-tab" class="auth-tab">
+          <h2 style="text-align: center; margin-bottom: 20px; font-size: 18px; font-weight: 700;">Create Account</h2>
+          <div class="role-selector">
+            <h3>Select Your Role</h3>
+            <div class="role-grid" id="role-grid-signup" style="grid-template-columns: repeat(2, 1fr);">
+              <div class="role-card" data-role="patient" onclick="selectRoleSignup('patient')">
+                <span class="role-icon">👤</span>
+                <span>Patient</span>
+              </div>
+              <div class="role-card" data-role="doctor" onclick="selectRoleSignup('doctor')">
+                <span class="role-icon">👨‍⚕️</span>
+                <span>Doctor</span>
+              </div>
+              <div class="role-card" data-role="pharmacy" onclick="selectRoleSignup('pharmacy')">
+                <span class="role-icon">💊</span>
+                <span>Pharmacist</span>
+              </div>
+              <div class="role-card" data-role="lab" onclick="selectRoleSignup('lab')">
+                <span class="role-icon">🔬</span>
+                <span>Lab Admin</span>
+              </div>
+              <div class="role-card" data-role="billing" onclick="selectRoleSignup('billing')">
+                <span class="role-icon">💳</span>
+                <span>Billing</span>
+              </div>
+              <div class="role-card" data-role="admin" onclick="selectRoleSignup('admin')">
+                <span class="role-icon">🛡️</span>
+                <span>Admin</span>
+              </div>
+            </div>
+          </div>
+          <form class="login-form" id="signup-form" onsubmit="handleRegister(event)">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="fullname" placeholder="Enter full name" required/>
+              <span class="form-error" id="fullname-error"></span>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="email" placeholder="Enter email address" required/>
+              <span class="form-error" id="email-error"></span>
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" id="signup-username" placeholder="Choose a username (3-20 chars)" required/>
+              <span class="form-error" id="signup-username-error"></span>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="signup-password" placeholder="Create password (6+ chars)" required/>
+              <span class="form-error" id="signup-password-error"></span>
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" id="confirm-password" placeholder="Confirm password" required/>
+              <span class="form-error" id="confirm-password-error"></span>
+            </div>
+            <button type="submit" class="btn-login">Create Account <span>✓</span></button>
+          </form>
+          <p class="login-hint">Already have an account? <a href="#" onclick="switchAuthTab(event)">Sign In</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app-screen" class="screen">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🏥</div>
+        <div class="sidebar-brand">
+          <span class="brand-name">E-Hospital</span>
+          <span class="brand-role" id="sidebar-role-label">Portal</span>
+        </div>
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+      </div>
+      <div class="sidebar-user" id="sidebar-user">
+        <div class="user-avatar" id="user-avatar">P</div>
+        <div class="user-info">
+          <span class="user-name" id="user-name-display">User</span>
+          <span class="user-role" id="user-role-display">Role</span>
+        </div>
+      </div>
+      <ul class="nav-menu" id="nav-menu"></ul>
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="logout()">🚪 Logout</button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      <!-- Top Bar -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <h2 class="page-title" id="page-title">Dashboard</h2>
+          <span class="page-breadcrumb" id="page-breadcrumb">Home / Dashboard</span>
+        </div>
+        <div class="topbar-right">
+          <div class="notification-bell" onclick="toggleNotifications()">
+            🔔
+            <span class="notif-badge" id="notif-badge">3</span>
+          </div>
+          <div class="topbar-time" id="topbar-time"></div>
+        </div>
+      </div>
+
+      <!-- Notifications Panel -->
+      <div class="notif-panel" id="notif-panel">
+        <div class="notif-header">
+          <h4>Notifications</h4>
+          <button onclick="clearNotifications()">Clear All</button>
+        </div>
+        <div class="notif-list" id="notif-list"></div>
+      </div>
+
+      <!-- Content Area -->
+      <div class="content-area" id="content-area">
+        <!-- Dynamic content rendered here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Global Modal Container -->
+  <div id="global-modal" class="modal-overlay"></div>
+
+  <!-- Global Notification Toast Container (handled by JS) -->
+
+  <script src="data.js"></script>
+  <script src="utils.js"></script>
+  <script src="notifications.js"></script>
+  <script src="app.js"></script>
+  <script src="modules/patient.js"></script>
+  <script src="modules/doctor.js"></script>
+  <script src="modules/pharmacy.js"></script>
+  <script src="modules/lab.js"></script>
+  <script src="modules/billing.js"></script>
+  <script src="modules/admin.js"></script>
+  <script src="modules/reports.js"></script>
+
+  <!-- Enhanced Modal & Form Handler Script -->
+  <script>
+    // ── ENHANCED MODAL SYSTEM ──
+    window.Modal = {
+      show(title, content, options = {}) {
+        const overlay = document.getElementById('global-modal');
+        const modal = document.createElement('div');
+        modal.className = 'modal fade-in';
+        modal.innerHTML = `
+          <button class="modal-close" onclick="Modal.close()">✕</button>
+          <div class="modal-title">${title}</div>
+          <div class="modal-body">${content}</div>
+          ${options.footer ? `<div class="modal-footer">${options.footer}</div>` : ''}
+        `;
+        overlay.innerHTML = '';
+        overlay.appendChild(modal);
+        overlay.classList.add('open');
+      },
+
+      close() {
+        const overlay = document.getElementById('global-modal');
+        overlay.classList.remove('open');
+        setTimeout(() => overlay.innerHTML = '', 300);
+      },
+
+      confirm(title, message, onConfirm, onCancel) {
+        this.show(title, `
+          <p style="margin-bottom: 20px; color: var(--text);">${message}</p>
+        `, {
+          footer: `
+            <button class="btn btn-danger" onclick="Modal.close(); (${onCancel || 'null'})()">Cancel</button>
+            <button class="btn btn-primary" onclick="Modal.close(); (${onConfirm})()">Confirm</button>
+          `
+        });
+      },
+
+      alert(title, message) {
+        this.show(title, `<p style="color: var(--text);">${message}</p>`, {
+          footer: '<button class="btn btn-primary" onclick="Modal.close()">OK</button>'
+        });
+      }
+    };
+
+    // ── KEYBOARD SHORTCUTS ──
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') Modal.close();
+      if (e.ctrlKey && e.key === 'k') { e.preventDefault(); /* Global search */ }
+    });
+
+    // ── CLICK OUTSIDE MODAL TO CLOSE ──
+    document.addEventListener('click', (e) => {
+      const overlay = document.getElementById('global-modal');
+      if (e.target === overlay) Modal.close();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px;
+        }
+
+        .container {
+            width: 300px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .count {
+            font-size: 12px;
+            color: gray;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h3>Message</h3>
+
+    <textarea id="message" placeholder="Type your message..."></textarea>
+    <div id="count" class="count">0 / 100</div>
+
+    <button>Send</button>
+</div>
+
+<script>
+    const textarea = document.getElementById("message");
+    const count = document.getElementById("count");
+    const maxLength = 100;
+
+    textarea.addEventListener("input", function () {
+        let text = textarea.value;
+
+        // Restrict input
+        if (text.length > maxLength) {
+            textarea.value = text.substring(0, maxLength);
+        }
+
+        // Update count
+        count.textContent = textarea.value.length + " / " + maxLength;
+    });
+</script>
+
+</body>
+</html>
